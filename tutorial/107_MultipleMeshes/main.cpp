@@ -14,7 +14,7 @@ int main(int argc, char * argv[])
   int last_selected = -1;
   for(const auto & name : names)
   {
-    viewer.load_mesh_from_file(std::string(TUTORIAL_SHARED_PATH) + "/" + name);
+    viewer.load_mesh_from_file(name);
     colors.emplace(viewer.data().id, 0.5*Eigen::RowVector3d::Random().array() + 0.5);
   }
 
