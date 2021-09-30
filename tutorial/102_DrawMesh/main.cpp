@@ -2,16 +2,16 @@
 #include <igl/opengl/glfw/Viewer.h>
 #include "tutorial_shared_path.h"
 
-Eigen::MatrixXd V;
-Eigen::MatrixXi F;
 
 int main(int argc, char *argv[])
 {
+  Eigen::MatrixXd vertices;
+	Eigen::MatrixXi facets;
   // Load a mesh in OFF format
-  igl::readOFF(TUTORIAL_SHARED_PATH "/bunny.off", V, F);
+  igl::readOFF("/bunny.off", vertices, facets);
 
   // Plot the mesh
   igl::opengl::glfw::Viewer viewer;
-  viewer.data().set_mesh(V, F);
+  viewer.data().set_mesh(vertices, facets);
   viewer.launch();
 }
