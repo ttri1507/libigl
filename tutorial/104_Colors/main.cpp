@@ -2,23 +2,24 @@
 #include <igl/opengl/glfw/Viewer.h>
 #include "tutorial_shared_path.h"
 
-Eigen::MatrixXd V;
-Eigen::MatrixXi F;
-Eigen::MatrixXd C;
 
 int main(int argc, char *argv[])
 {
+  Eigen::MatrixXd vertices;
+	Eigen::MatrixXi facets;
+	Eigen::MatrixXd C;
+  
   // Load a mesh in OFF format
-  igl::readOFF(TUTORIAL_SHARED_PATH "/screwdriver.off", V, F);
+  igl::readOFF("screwdriver.off", vertices, facets);
 
   // Plot the mesh
   igl::opengl::glfw::Viewer viewer;
-  viewer.data().set_mesh(V, F);
+  viewer.data().set_mesh(vertices, facets);
 
   // Use the (normalized) vertex positions as colors
   C = 
-    (V.rowwise()            - V.colwise().minCoeff()).array().rowwise()/
-    (V.colwise().maxCoeff() - V.colwise().minCoeff()).array();
+    (vertices.rowwise()            - vertices.colwise().minCoeff()).array().rowwise()/
+    (vertices.colwise().maxCoeff() - vertices.colwise().minCoeff()).array();
 
   // Add per-vertex colors
   viewer.data().set_colors(C);
